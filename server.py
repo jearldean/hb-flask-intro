@@ -18,14 +18,28 @@ AWESOMENESS = [
 def start_here():
     """Home page."""
     
-    return "<!doctype html><html>Hi! This is the home page. <p><a href="http://localhost:5000/hello">Hello</a></p> </html>"
+    return "<!doctype html><html>Hi! This is the home page. <p><a href=\"http://localhost:5000/hello\">Hello</a></p> </html>"
 
 
 @app.route('/hello')
 def say_hello():
-    """Say hello and prompt for user's name."""
+    """Say hello and prompt for user's name.
+    
+    <p>Choose a melon:
+    <select> name="melon"
+        <option selected="watermleon" value="Watermleon">Watermleon</option>
+        <option value="Canteloupe">Canteloupe</option>
+        <option value="Honeydew">Honeydew</option>
+        </select></p>
+    
+    """
 
-    return """
+    options_dropdown = ""
+    for awesome in AWESOMENESS:
+      options_dropdown += f"<option value=\"{awesome}\">{awesome}</option>"
+
+
+    return f"""
     <!doctype html>
     <html>
       <head>
@@ -36,7 +50,13 @@ def say_hello():
         <form action="/greet">
           What's your name? <input type="text" name="person">
           <input type="submit" value="Submit">
-        </form>
+      <br><br>
+        What's your best quality?
+      <select name="compliment">
+        {options_dropdown}
+      </select>
+      </form>
+      
       </body>
     </html>
     """
